@@ -3,44 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Umpan Balik Aksi Nyata</title>
+    <title>Formulir Umpan Balik Aksi Nyata</title>
     <style>
         body {
             font-family: Arial, sans-serif;
+            margin: 20px;
             background-color: #f4f4f4;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            padding: 20px;
-            box-sizing: border-box;
+            color: #333;
         }
         .container {
+            max-width: 700px;
+            margin: 0 auto;
             background-color: #fff;
             padding: 30px;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 600px;
         }
-        h2 {
+        h1 {
             text-align: center;
-            color: #333;
-            margin-bottom: 25px;
+            color: #0056b3;
+            margin-bottom: 30px;
         }
         .form-group {
-            margin-bottom: 18px;
+            margin-bottom: 20px;
         }
         label {
             display: block;
             margin-bottom: 8px;
-            color: #555;
             font-weight: bold;
         }
         input[type="text"],
-        textarea,
-        select {
+        select,
+        textarea {
             width: 100%;
             padding: 10px;
             border: 1px solid #ddd;
@@ -50,63 +44,64 @@
         }
         textarea {
             resize: vertical;
-            min-height: 100px;
+            min-height: 120px;
         }
         input[type="file"] {
-            padding: 5px 0;
+            padding: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: #f9f9f9;
+        }
+        .image-preview-container {
+            margin-top: 15px;
+            text-align: center;
+        }
+        #imagePreview {
+            max-width: 150px;
+            max-height: 150px;
+            border: 1px solid #ddd;
+            padding: 5px;
+            border-radius: 4px;
+            display: none; /* Sembunyikan secara default */
         }
         .button-group {
-            display: flex;
-            gap: 10px;
-            justify-content: flex-end;
-            margin-top: 25px;
+            text-align: center;
+            margin-top: 30px;
         }
         button {
-            padding: 10px 20px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
-            transition: background-color 0.3s ease;
-        }
-        button.review {
             background-color: #007bff;
             color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+            margin: 0 10px;
+            transition: background-color 0.3s ease;
         }
-        button.review:hover {
+        button:hover {
             background-color: #0056b3;
         }
-        button.submit {
-            background-color: #28a745;
-            color: white;
-        }
-        button.submit:hover {
-            background-color: #218838;
-        }
         #reviewModal {
-            display: none; /* Hidden by default */
-            position: fixed; /* Stay in place */
-            z-index: 1; /* Sit on top */
+            display: none;
+            position: fixed;
+            z-index: 1;
             left: 0;
             top: 0;
-            width: 100%; /* Full width */
-            height: 100%; /* Full height */
-            overflow: auto; /* Enable scroll if needed */
-            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-            box-sizing: border-box;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4);
+            padding-top: 60px;
         }
         .modal-content {
             background-color: #fefefe;
-            margin: auto;
+            margin: 5% auto;
             padding: 30px;
             border: 1px solid #888;
-            width: 90%;
-            max-width: 500px;
+            width: 80%;
+            max-width: 600px;
             border-radius: 8px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
             position: relative;
         }
         .close-button {
@@ -114,9 +109,6 @@
             float: right;
             font-size: 28px;
             font-weight: bold;
-            position: absolute;
-            top: 10px;
-            right: 15px;
         }
         .close-button:hover,
         .close-button:focus {
@@ -124,27 +116,39 @@
             text-decoration: none;
             cursor: pointer;
         }
-        .review-item {
+        .review-field {
             margin-bottom: 10px;
         }
-        .review-item strong {
+        .review-field strong {
             display: inline-block;
-            width: 120px; /* Adjust as needed for alignment */
+            width: 120px;
+        }
+        #reviewImage {
+            max-width: 100%;
+            height: auto;
+            margin-top: 15px;
+            border: 1px solid #ddd;
+            padding: 5px;
+            border-radius: 4px;
+        }
+        .download-options {
+            text-align: center;
+            margin-top: 20px;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h2>Umpan Balik Aksi Nyata</h2>
+        <h1>Formulir Umpan Balik Aksi Nyata<br>PPG Guru Tertentu</h1>
         <form id="feedbackForm">
             <div class="form-group">
-                <label for="namaLengkap">Nama Lengkap:</label>
-                <input type="text" id="namaLengkap" name="namaLengkap" required>
+                <label for="fullName">Nama Lengkap:</label>
+                <input type="text" id="fullName" name="fullName" required>
             </div>
 
             <div class="form-group">
-                <label for="jabatan">Jabatan:</label>
-                <select id="jabatan" name="jabatan" required>
+                <label for="position">Jabatan:</label>
+                <select id="position" name="position" required>
                     <option value="">Pilih Jabatan</option>
                     <option value="Guru Kelas 1">Guru Kelas 1</option>
                     <option value="Guru Kelas 2">Guru Kelas 2</option>
@@ -154,116 +158,159 @@
                     <option value="Guru Kelas 6">Guru Kelas 6</option>
                     <option value="Kepala Sekolah">Kepala Sekolah</option>
                     <option value="Guru PJOK">Guru PJOK</option>
+                    <option value="Lainnya">Lainnya</option>
                 </select>
             </div>
 
             <div class="form-group">
-                <label for="aksiNyata">Aksi Nyata:</label>
-                <select id="aksiNyata" name="aksiNyata" required>
+                <label for="actionType">Aksi Nyata:</label>
+                <select id="actionType" name="actionType" required>
                     <option value="">Pilih Aksi Nyata</option>
-                    <option value="Pembelajaran Berdiferensiasi">Aksi Nyata Pembelajaran Berdiferensiasi</option>
-                    <option value="Pembelajaran Sosial Emosional">Aksi Nyata Pembelajaran Sosial Emosional</option>
+                    <option value="Aksi nyata Pembelajaran Berdiferensiasi">Aksi nyata Pembelajaran Berdiferensiasi</option>
+                    <option value="Aksi nyata Pembelajaran Sosial Emosional">Aksi nyata Pembelajaran Sosial Emosional</option>
                     <option value="Pendidikan Inklusif Anak Berkebutuhan Khusus">Pendidikan Inklusif Anak Berkebutuhan Khusus</option>
                 </select>
             </div>
 
             <div class="form-group">
-                <label for="unggahFoto">Unggah Foto (Opsional):</label>
-                <input type="file" id="unggahFoto" name="unggahFoto" accept="image/*">
+                <label for="photoUpload">Unggah Foto:</label>
+                <input type="file" id="photoUpload" name="photoUpload" accept="image/*" onchange="previewImage(event)">
+                <div class="image-preview-container">
+                    <img id="imagePreview" src="#" alt="Pratinjau Gambar">
+                </div>
             </div>
 
             <div class="form-group">
-                <label for="umpanBalik">Umpan Balik Terhadap Aksi Nyata:</label>
-                <textarea id="umpanBalik" name="umpanBalik" rows="5" required></textarea>
+                <label for="feedback">Umpan Balik Terhadap Aksi Nyata:</label>
+                <textarea id="feedback" name="feedback" required></textarea>
             </div>
 
             <div class="button-group">
-                <button type="button" class="review" onclick="openReviewModal()">Review Sebelum Kirim</button>
-                <button type="submit" class="submit">Kirim Umpan Balik</button>
+                <button type="button" onclick="reviewResponse()">Tinjau & Unduh</button>
             </div>
         </form>
     </div>
 
-    <div id="reviewModal">
+    <div id="reviewModal" class="modal">
         <div class="modal-content">
-            <span class="close-button" onclick="closeReviewModal()">&times;</span>
-            <h3>Review Umpan Balik Anda</h3>
-            <div id="reviewContent"></div>
-            <div class="button-group" style="justify-content: center;">
-                <button type="button" class="submit" onclick="submitFeedback()">Kirim Sekarang</button>
+            <span class="close-button" onclick="closeModal()">&times;</span>
+            <h2>Tinjau Umpan Balik Anda</h2>
+            <div id="reviewContent">
+                <div class="review-field"><strong>Nama Lengkap:</strong> <span id="reviewFullName"></span></div>
+                <div class="review-field"><strong>Jabatan:</strong> <span id="reviewPosition"></span></div>
+                <div class="review-field"><strong>Aksi Nyata:</strong> <span id="reviewActionType"></span></div>
+                <div class="review-field"><strong>Umpan Balik:</strong> <span id="reviewFeedback"></span></div>
+                <div class="review-field">
+                    <strong>Foto:</strong> <br>
+                    <img id="reviewImage" src="#" alt="Foto Umpan Balik">
+                </div>
+            </div>
+            <div class="download-options">
+                <button onclick="downloadAsJPG()">Unduh</button>
             </div>
         </div>
     </div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script>
-        const targetEmail = 'arisatria19@guru.smp.belajar.id'; // Ganti dengan alamat email tujuan Anda
+        let resizedImageBase64 = null;
 
-        document.getElementById('feedbackForm').addEventListener('submit', function(event) {
-            event.preventDefault(); // Mencegah form submit default
+        function previewImage(event) {
+            const reader = new FileReader();
+            reader.onload = function(){
+                const output = document.getElementById('imagePreview');
+                output.src = reader.result;
+                output.style.display = 'block';
+                resizeImage(reader.result);
+            };
+            reader.readAsDataURL(event.target.files[0]);
+        }
 
-            // Hanya untuk memberikan konfirmasi visual bahwa tombol kirim di formulir utama ditekan
-            // Pengiriman sebenarnya akan ditangani oleh tombol "Kirim Sekarang" di modal review
-            alert('Silakan review umpan balik Anda terlebih dahulu!');
-        });
+        function resizeImage(base64Str) {
+            const img = new Image();
+            img.src = base64Str;
+            img.onload = function() {
+                const MAX_WIDTH = 300; // Ukuran maksimum untuk pratinjau dan unduhan
+                const MAX_HEIGHT = 300;
+                let width = img.width;
+                let height = img.height;
 
-        function openReviewModal() {
-            const namaLengkap = document.getElementById('namaLengkap').value;
-            const jabatan = document.getElementById('jabatan').value;
-            const aksiNyata = document.getElementById('aksiNyata').value;
-            const umpanBalik = document.getElementById('umpanBalik').value;
-            const unggahFotoInput = document.getElementById('unggahFoto');
-            const fotoName = unggahFotoInput.files.length > 0 ? unggahFotoInput.files[0].name : 'Tidak ada foto diunggah';
+                if (width > height) {
+                    if (width > MAX_WIDTH) {
+                        height *= MAX_WIDTH / width;
+                        width = MAX_WIDTH;
+                    }
+                } else {
+                    if (height > MAX_HEIGHT) {
+                        width *= MAX_HEIGHT / height;
+                        height = MAX_HEIGHT;
+                    }
+                }
 
-            if (!namaLengkap || !jabatan || !aksiNyata || !umpanBalik) {
-                alert('Harap lengkapi semua kolom yang wajib diisi (Nama Lengkap, Jabatan, Aksi Nyata, dan Umpan Balik).');
+                const canvas = document.createElement('canvas');
+                canvas.width = width;
+                canvas.height = height;
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(img, 0, 0, width, height);
+                resizedImageBase64 = canvas.toDataURL('image/jpeg', 0.9); // Kualitas JPG 0.9
+            };
+        }
+
+        function reviewResponse() {
+            const fullName = document.getElementById('fullName').value;
+            const position = document.getElementById('position').value;
+            const actionType = document.getElementById('actionType').value;
+            const feedback = document.getElementById('feedback').value;
+
+            if (!fullName || !position || !actionType || !feedback) {
+                alert('Mohon lengkapi semua kolom formulir.');
                 return;
             }
 
-            const reviewContent = document.getElementById('reviewContent');
-            reviewContent.innerHTML = `
-                <div class="review-item"><strong>Nama Lengkap:</strong> ${namaLengkap}</div>
-                <div class="review-item"><strong>Jabatan:</strong> ${jabatan}</div>
-                <div class="review-item"><strong>Aksi Nyata:</strong> ${aksiNyata}</div>
-                <div class="review-item"><strong>Unggah Foto:</strong> ${fotoName}</div>
-                <div class="review-item"><strong>Umpan Balik:</strong> <br>${umpanBalik.replace(/\n/g, '<br>')}</div>
-            `;
-            document.getElementById('reviewModal').style.display = 'flex';
+            document.getElementById('reviewFullName').textContent = fullName;
+            document.getElementById('reviewPosition').textContent = position;
+            document.getElementById('reviewActionType').textContent = actionType;
+            document.getElementById('reviewFeedback').textContent = feedback;
+            
+            const reviewImageElement = document.getElementById('reviewImage');
+            if (resizedImageBase64) {
+                reviewImageElement.src = resizedImageBase64;
+                reviewImageElement.style.display = 'block';
+            } else {
+                reviewImageElement.style.display = 'none';
+                reviewImageElement.src = '#'; // Bersihkan src jika tidak ada gambar
+            }
+
+            document.getElementById('reviewModal').style.display = 'block';
         }
 
-        function closeReviewModal() {
+        function closeModal() {
             document.getElementById('reviewModal').style.display = 'none';
         }
 
-        function submitFeedback() {
-            const namaLengkap = document.getElementById('namaLengkap').value;
-            const jabatan = document.getElementById('jabatan').value;
-            const aksiNyata = document.getElementById('aksiNyata').value;
-            const umpanBalik = document.getElementById('umpanBalik').value;
-            const unggahFotoInput = document.getElementById('unggahFoto');
-            const fotoName = unggahFotoInput.files.length > 0 ? unggahFotoInput.files[0].name : 'Tidak ada foto diunggah';
+        async function downloadAsJPG() {
+            const reviewContent = document.getElementById('reviewContent');
 
-            // Membangun body email
-            let emailBody = `
-Nama Lengkap: ${namaLengkap}
-Jabatan: ${jabatan}
-Aksi Nyata: ${aksiNyata}
-Unggah Foto: ${fotoName}
-Umpan Balik Terhadap Aksi Nyata:
-${umpanBalik}
-            `.trim();
+            // Sembunyikan tombol unduh sementara agar tidak ikut tercetak
+            const downloadButton = document.querySelector('.download-options');
+            downloadButton.style.display = 'none';
 
-            const subject = encodeURIComponent(`Umpan Balik Aksi Nyata: ${aksiNyata}`);
-            const body = encodeURIComponent(emailBody);
+            // Memberikan sedikit waktu agar DOM diperbarui sebelum di-render
+            await new Promise(resolve => setTimeout(resolve, 50));
 
-            // Perlu diingat bahwa `mailto:` tidak dapat melampirkan file.
-            // Pengguna perlu melampirkan file secara manual di aplikasi email mereka.
-            // Pesan ini akan muncul di aplikasi email mereka.
+            html2canvas(reviewContent, { 
+                scale: 2, // Meningkatkan resolusi gambar hasil
+                useCORS: true // Penting jika ada gambar dari domain lain, meskipun di sini lokal
+            }).then(canvas => {
+                const link = document.createElement('a');
+                link.download = 'Umpan_Balik_Aksi_Nyata.jpg';
+                link.href = canvas.toDataURL('image/jpeg', 0.95); // Kualitas JPG 0.95
+                link.click();
 
-            window.location.href = `mailto:${targetEmail}?subject=${subject}&body=${body}`;
-
-            closeReviewModal();
-            alert('Umpan balik Anda telah disiapkan di aplikasi email Anda. Silakan tekan tombol kirim di aplikasi email Anda.');
-            document.getElementById('feedbackForm').reset(); // Reset form setelah dikirim
+                // Tampilkan kembali tombol unduh
+                downloadButton.style.display = 'block';
+                closeModal();
+            });
         }
     </script>
 </body>
