@@ -3,26 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulir Umpan Balik Aksi Nyata</title>
+    <title>Form Umpan Balik Aksi Nyata</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-            background-color: #f4f4f4;
-            color: #333;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
         }
         .container {
-            max-width: 700px;
-            margin: 0 auto;
-            background-color: #fff;
+            background-color: #ffffff;
             padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 700px;
+            box-sizing: border-box;
         }
-        h1 {
+        h2 {
             text-align: center;
-            color: #0056b3;
-            margin-bottom: 30px;
+            color: #333;
+            margin-bottom: 25px;
         }
         .form-group {
             margin-bottom: 20px;
@@ -30,116 +35,132 @@
         label {
             display: block;
             margin-bottom: 8px;
+            color: #555;
             font-weight: bold;
         }
         input[type="text"],
         select,
         textarea {
-            width: 100%;
-            padding: 10px;
+            width: calc(100% - 22px);
+            padding: 12px;
             border: 1px solid #ddd;
-            border-radius: 4px;
-            box-sizing: border-box;
+            border-radius: 6px;
             font-size: 16px;
+            box-sizing: border-box;
+            transition: border-color 0.3s ease;
+        }
+        input[type="text"]:focus,
+        select:focus,
+        textarea:focus {
+            border-color: #007bff;
+            outline: none;
         }
         textarea {
             resize: vertical;
             min-height: 120px;
         }
         input[type="file"] {
-            padding: 5px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            background-color: #f9f9f9;
+            display: block;
+            padding: 8px 0;
         }
         .image-preview-container {
             margin-top: 15px;
             text-align: center;
+            border: 1px dashed #ccc;
+            padding: 10px;
+            border-radius: 6px;
+            min-height: 100px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f9f9f9;
         }
         #imagePreview {
-            max-width: 150px;
-            max-height: 150px;
-            border: 1px solid #ddd;
-            padding: 5px;
+            max-width: 100%;
+            max-height: 200px;
             border-radius: 4px;
-            display: none; /* Sembunyikan secara default */
+            display: none; /* Hidden until image is loaded */
         }
         .button-group {
-            text-align: center;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
             margin-top: 30px;
         }
         button {
-            background-color: #007bff;
-            color: white;
             padding: 12px 25px;
             border: none;
-            border-radius: 5px;
+            border-radius: 6px;
+            font-size: 17px;
             cursor: pointer;
-            font-size: 18px;
-            margin: 0 10px;
-            transition: background-color 0.3s ease;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            color: #fff;
         }
-        button:hover {
+        button#reviewBtn {
+            background-color: #007bff;
+        }
+        button#reviewBtn:hover {
             background-color: #0056b3;
+            transform: translateY(-2px);
         }
-        #reviewModal {
-            display: none;
-            position: fixed;
-            z-index: 1;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0,0,0,0.4);
-            padding-top: 60px;
+        button#downloadBtn {
+            background-color: #28a745;
+            display: none; /* Hidden until review */
         }
-        .modal-content {
-            background-color: #fefefe;
-            margin: 5% auto;
-            padding: 30px;
-            border: 1px solid #888;
-            width: 80%;
-            max-width: 600px;
+        button#downloadBtn:hover {
+            background-color: #218838;
+            transform: translateY(-2px);
+        }
+        #reviewOutput {
+            margin-top: 30px;
+            padding: 20px;
+            border: 1px solid #e0e0e0;
             border-radius: 8px;
-            position: relative;
+            background-color: #f0f8ff;
+            display: none; /* Hidden until review */
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
+            line-height: 1.6;
         }
-        .close-button {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
+        #reviewOutput h3 {
+            text-align: center;
+            color: #0056b3;
+            margin-bottom: 15px;
         }
-        .close-button:hover,
-        .close-button:focus {
-            color: black;
-            text-decoration: none;
-            cursor: pointer;
+        #reviewContent {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap; /* Allow wrapping on smaller screens */
+            justify-content: center;
+            align-items: flex-start;
         }
-        .review-field {
-            margin-bottom: 10px;
+        #reviewText {
+            flex: 2; /* Takes more space */
+            min-width: 280px; /* Minimum width for text */
         }
-        .review-field strong {
-            display: inline-block;
-            width: 120px;
+        #reviewImageContainer {
+            flex: 1; /* Takes less space */
+            min-width: 150px; /* Minimum width for image */
+            text-align: center;
         }
         #reviewImage {
-            max-width: 100%;
-            height: auto;
-            margin-top: 15px;
+            max-width: 180px; /* Adjust as needed */
+            max-height: 180px; /* Adjust as needed */
             border: 1px solid #ddd;
-            padding: 5px;
-            border-radius: 4px;
+            border-radius: 5px;
+            object-fit: cover; /* Ensures image covers area without distortion */
         }
-        .download-options {
-            text-align: center;
-            margin-top: 20px;
+        #reviewOutput p {
+            margin-bottom: 10px;
+            color: #333;
+        }
+        #reviewOutput p strong {
+            color: #000;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Formulir Umpan Balik Aksi Nyata<br>PPG Guru Tertentu</h1>
+        <h2>Form Umpan Balik Aksi Nyata<br>PPG Guru Tertentu</h2>
         <form id="feedbackForm">
             <div class="form-group">
                 <label for="fullName">Nama Lengkap:</label>
@@ -158,160 +179,161 @@
                     <option value="Guru Kelas 6">Guru Kelas 6</option>
                     <option value="Kepala Sekolah">Kepala Sekolah</option>
                     <option value="Guru PJOK">Guru PJOK</option>
-                    <option value="Lainnya">Lainnya</option>
                 </select>
             </div>
 
             <div class="form-group">
-                <label for="actionType">Aksi Nyata:</label>
-                <select id="actionType" name="actionType" required>
+                <label for="aksiNyata">Aksi Nyata:</label>
+                <select id="aksiNyata" name="aksiNyata" required>
                     <option value="">Pilih Aksi Nyata</option>
-                    <option value="Aksi nyata Pembelajaran Berdiferensiasi">Aksi nyata Pembelajaran Berdiferensiasi</option>
-                    <option value="Aksi nyata Pembelajaran Sosial Emosional">Aksi nyata Pembelajaran Sosial Emosional</option>
+                    <option value="Pembelajaran Berdiferensiasi">Aksi Nyata Pembelajaran Berdiferensiasi</option>
+                    <option value="Pembelajaran Sosial Emosional">Aksi Nyata Pembelajaran Sosial Emosional</option>
                     <option value="Pendidikan Inklusif Anak Berkebutuhan Khusus">Pendidikan Inklusif Anak Berkebutuhan Khusus</option>
                 </select>
             </div>
 
             <div class="form-group">
-                <label for="photoUpload">Unggah Foto:</label>
-                <input type="file" id="photoUpload" name="photoUpload" accept="image/*" onchange="previewImage(event)">
+                <label for="photoUpload">Unggah Foto (Ukuran Maksimal 500KB, Otomatis Disusutkan):</label>
+                <input type="file" id="photoUpload" name="photoUpload" accept="image/*">
                 <div class="image-preview-container">
                     <img id="imagePreview" src="#" alt="Pratinjau Gambar">
                 </div>
             </div>
 
             <div class="form-group">
-                <label for="feedback">Umpan Balik Terhadap Aksi Nyata:</label>
+                <label for="feedback">Umpan Balik terhadap Aksi Nyata:</label>
                 <textarea id="feedback" name="feedback" required></textarea>
             </div>
 
             <div class="button-group">
-                <button type="button" onclick="reviewResponse()">Tinjau & Unduh</button>
+                <button type="button" id="reviewBtn">Review Jawaban</button>
+                <button type="button" id="downloadBtn">Download Respon (JPG)</button>
             </div>
         </form>
-    </div>
 
-    <div id="reviewModal" class="modal">
-        <div class="modal-content">
-            <span class="close-button" onclick="closeModal()">&times;</span>
-            <h2>Tinjau Umpan Balik Anda</h2>
+        <div id="reviewOutput">
+            <h3>Umpan Balik Teman Sejawat</h3>
             <div id="reviewContent">
-                <div class="review-field"><strong>Nama Lengkap:</strong> <span id="reviewFullName"></span></div>
-                <div class="review-field"><strong>Jabatan:</strong> <span id="reviewPosition"></span></div>
-                <div class="review-field"><strong>Aksi Nyata:</strong> <span id="reviewActionType"></span></div>
-                <div class="review-field"><strong>Umpan Balik:</strong> <span id="reviewFeedback"></span></div>
-                <div class="review-field">
-                    <strong>Foto:</strong> <br>
+                <div id="reviewText">
+                    <p><strong>Nama Lengkap:</strong> <span id="reviewFullName"></span></p>
+                    <p><strong>Jabatan:</strong> <span id="reviewPosition"></span></p>
+                    <p><strong>Aksi Nyata:</strong> <span id="reviewAksiNyata"></span></p>
+                    <p><strong>Umpan Balik:</strong> <span id="reviewFeedback"></span></p>
+                </div>
+                <div id="reviewImageContainer">
                     <img id="reviewImage" src="#" alt="Foto Umpan Balik">
                 </div>
-            </div>
-            <div class="download-options">
-                <button onclick="downloadAsJPG()">Unduh</button>
             </div>
         </div>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script>
-        let resizedImageBase64 = null;
+        const photoUpload = document.getElementById('photoUpload');
+        const imagePreview = document.getElementById('imagePreview');
+        const reviewBtn = document.getElementById('reviewBtn');
+        const downloadBtn = document.getElementById('downloadBtn');
+        const reviewOutput = document.getElementById('reviewOutput');
+        const reviewFullName = document.getElementById('reviewFullName');
+        const reviewPosition = document.getElementById('reviewPosition');
+        const reviewAksiNyata = document.getElementById('reviewAksiNyata');
+        const reviewFeedback = document.getElementById('reviewFeedback');
+        const reviewImage = document.getElementById('reviewImage');
+        let resizedImageBase64 = null; // To store the base64 of the resized image
 
-        function previewImage(event) {
-            const reader = new FileReader();
-            reader.onload = function(){
-                const output = document.getElementById('imagePreview');
-                output.src = reader.result;
-                output.style.display = 'block';
-                resizeImage(reader.result);
-            };
-            reader.readAsDataURL(event.target.files[0]);
-        }
+        photoUpload.addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const img = new Image();
+                    img.src = e.target.result;
+                    img.onload = function() {
+                        const MAX_WIDTH = 400; // Max width for the resized image
+                        const MAX_HEIGHT = 400; // Max height for the resized image
+                        let width = img.width;
+                        let height = img.height;
 
-        function resizeImage(base64Str) {
-            const img = new Image();
-            img.src = base64Str;
-            img.onload = function() {
-                const MAX_WIDTH = 300; // Ukuran maksimum untuk pratinjau dan unduhan
-                const MAX_HEIGHT = 300;
-                let width = img.width;
-                let height = img.height;
+                        if (width > height) {
+                            if (width > MAX_WIDTH) {
+                                height *= MAX_WIDTH / width;
+                                width = MAX_WIDTH;
+                            }
+                        } else {
+                            if (height > MAX_HEIGHT) {
+                                width *= MAX_HEIGHT / height;
+                                height = MAX_HEIGHT;
+                            }
+                        }
 
-                if (width > height) {
-                    if (width > MAX_WIDTH) {
-                        height *= MAX_WIDTH / width;
-                        width = MAX_WIDTH;
-                    }
-                } else {
-                    if (height > MAX_HEIGHT) {
-                        width *= MAX_HEIGHT / height;
-                        height = MAX_HEIGHT;
-                    }
-                }
+                        const canvas = document.createElement('canvas');
+                        canvas.width = width;
+                        canvas.height = height;
+                        const ctx = canvas.getContext('2d');
+                        ctx.drawImage(img, 0, 0, width, height);
 
-                const canvas = document.createElement('canvas');
-                canvas.width = width;
-                canvas.height = height;
-                const ctx = canvas.getContext('2d');
-                ctx.drawImage(img, 0, 0, width, height);
-                resizedImageBase64 = canvas.toDataURL('image/jpeg', 0.9); // Kualitas JPG 0.9
-            };
-        }
+                        // Convert canvas to base64 with JPEG format and quality
+                        resizedImageBase64 = canvas.toDataURL('image/jpeg', 0.8); // 0.8 is quality
+                        imagePreview.src = resizedImageBase64;
+                        imagePreview.style.display = 'block';
+                    };
+                };
+                reader.readAsDataURL(file);
+            } else {
+                imagePreview.style.display = 'none';
+                imagePreview.src = '#';
+                resizedImageBase64 = null;
+            }
+        });
 
-        function reviewResponse() {
+        reviewBtn.addEventListener('click', function() {
             const fullName = document.getElementById('fullName').value;
             const position = document.getElementById('position').value;
-            const actionType = document.getElementById('actionType').value;
+            const aksiNyata = document.getElementById('aksiNyata').value;
             const feedback = document.getElementById('feedback').value;
 
-            if (!fullName || !position || !actionType || !feedback) {
-                alert('Mohon lengkapi semua kolom formulir.');
+            if (!fullName || !position || !aksiNyata || !feedback) {
+                alert('Mohon lengkapi semua kolom sebelum me-review.');
                 return;
             }
 
-            document.getElementById('reviewFullName').textContent = fullName;
-            document.getElementById('reviewPosition').textContent = position;
-            document.getElementById('reviewActionType').textContent = actionType;
-            document.getElementById('reviewFeedback').textContent = feedback;
-            
-            const reviewImageElement = document.getElementById('reviewImage');
+            reviewFullName.textContent = fullName;
+            reviewPosition.textContent = position;
+            reviewAksiNyata.textContent = aksiNyata;
+            reviewFeedback.textContent = feedback;
+
             if (resizedImageBase64) {
-                reviewImageElement.src = resizedImageBase64;
-                reviewImageElement.style.display = 'block';
+                reviewImage.src = resizedImageBase64;
+                reviewImage.style.display = 'block';
             } else {
-                reviewImageElement.style.display = 'none';
-                reviewImageElement.src = '#'; // Bersihkan src jika tidak ada gambar
+                reviewImage.style.display = 'none';
+                reviewImage.src = '#';
             }
 
-            document.getElementById('reviewModal').style.display = 'block';
-        }
+            reviewOutput.style.display = 'block';
+            downloadBtn.style.display = 'inline-block'; // Show download button
+        });
 
-        function closeModal() {
-            document.getElementById('reviewModal').style.display = 'none';
-        }
+        downloadBtn.addEventListener('click', function() {
+            // Temporarily hide the buttons for clean screenshot
+            reviewBtn.style.display = 'none';
+            downloadBtn.style.display = 'none';
 
-        async function downloadAsJPG() {
-            const reviewContent = document.getElementById('reviewContent');
-
-            // Sembunyikan tombol unduh sementara agar tidak ikut tercetak
-            const downloadButton = document.querySelector('.download-options');
-            downloadButton.style.display = 'none';
-
-            // Memberikan sedikit waktu agar DOM diperbarui sebelum di-render
-            await new Promise(resolve => setTimeout(resolve, 50));
-
-            html2canvas(reviewContent, { 
-                scale: 2, // Meningkatkan resolusi gambar hasil
-                useCORS: true // Penting jika ada gambar dari domain lain, meskipun di sini lokal
+            // Use html2canvas to capture the reviewOutput div
+            html2canvas(reviewOutput, {
+                scale: 2, // Increase scale for better quality
+                useCORS: true // Essential if images are loaded from different origins (though here it's base64)
             }).then(canvas => {
                 const link = document.createElement('a');
                 link.download = 'Umpan_Balik_Aksi_Nyata.jpg';
-                link.href = canvas.toDataURL('image/jpeg', 0.95); // Kualitas JPG 0.95
+                link.href = canvas.toDataURL('image/jpeg', 0.9); // 0.9 is quality for download
                 link.click();
-
-                // Tampilkan kembali tombol unduh
-                downloadButton.style.display = 'block';
-                closeModal();
             });
-        }
+
+            // Bring buttons back
+            reviewBtn.style.display = 'inline-block';
+            downloadBtn.style.display = 'inline-block';
+        });
     </script>
 </body>
 </html>
