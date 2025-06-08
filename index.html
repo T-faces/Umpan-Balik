@@ -3,39 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Form Umpan Balik Aksi Nyata</title>
+    <title>Formulir Umpan Balik Aksi Nyata</title>
     <style>
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f4f7f6;
-            margin: 0;
-            padding: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            min-height: 100vh;
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+            color: #333;
         }
         .container {
-            background-color: #ffffff;
+            background-color: #fff;
             padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             max-width: 700px;
-            box-sizing: border-box;
+            margin: auto;
         }
         h2 {
             text-align: center;
-            color: #333;
+            color: #0056b3;
             margin-bottom: 25px;
         }
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 18px;
         }
         label {
             display: block;
             margin-bottom: 8px;
-            color: #555;
             font-weight: bold;
         }
         input[type="text"],
@@ -44,123 +38,104 @@
             width: calc(100% - 22px);
             padding: 12px;
             border: 1px solid #ddd;
-            border-radius: 6px;
-            font-size: 16px;
+            border-radius: 5px;
             box-sizing: border-box;
-            transition: border-color 0.3s ease;
-        }
-        input[type="text"]:focus,
-        select:focus,
-        textarea:focus {
-            border-color: #007bff;
-            outline: none;
+            font-size: 16px;
         }
         textarea {
             resize: vertical;
-            min-height: 120px;
+            min-height: 100px;
         }
         input[type="file"] {
-            display: block;
-            padding: 8px 0;
-        }
-        .image-preview-container {
-            margin-top: 15px;
-            text-align: center;
-            border: 1px dashed #ccc;
-            padding: 10px;
-            border-radius: 6px;
-            min-height: 100px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: #f9f9f9;
-        }
-        #imagePreview {
-            max-width: 100%;
-            max-height: 200px;
-            border-radius: 4px;
-            display: none; /* Hidden until image is loaded */
-        }
-        .button-group {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-top: 30px;
+            padding: 10px 0;
         }
         button {
-            padding: 12px 25px;
-            border: none;
-            border-radius: 6px;
-            font-size: 17px;
-            cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.2s ease;
-            color: #fff;
-        }
-        button#reviewBtn {
             background-color: #007bff;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 17px;
+            width: 100%;
+            margin-top: 20px;
+            transition: background-color 0.3s ease;
         }
-        button#reviewBtn:hover {
+        button:hover {
             background-color: #0056b3;
-            transform: translateY(-2px);
         }
-        button#downloadBtn {
-            background-color: #28a745;
-            display: none; /* Hidden until review */
-        }
-        button#downloadBtn:hover {
-            background-color: #218838;
-            transform: translateY(-2px);
-        }
-        #reviewOutput {
+        .review-section {
+            display: none;
             margin-top: 30px;
             padding: 20px;
-            border: 1px solid #e0e0e0;
+            border: 1px solid #ccc;
             border-radius: 8px;
-            background-color: #f0f8ff;
-            display: none; /* Hidden until review */
-            box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
+            background-color: #f9f9f9;
+        }
+        .review-section h3 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #007bff;
+        }
+        .review-item {
+            margin-bottom: 12px;
             line-height: 1.6;
         }
-        #reviewOutput h3 {
-            text-align: center;
-            color: #0056b3;
-            margin-bottom: 15px;
+        .review-item strong {
+            display: inline-block;
+            width: 150px;
+            color: #555;
         }
-        #reviewContent {
-            display: flex;
-            gap: 20px;
-            flex-wrap: wrap; /* Allow wrapping on smaller screens */
-            justify-content: center;
-            align-items: flex-start;
-        }
-        #reviewText {
-            flex: 2; /* Takes more space */
-            min-width: 280px; /* Minimum width for text */
-        }
-        #reviewImageContainer {
-            flex: 1; /* Takes less space */
-            min-width: 150px; /* Minimum width for image */
-            text-align: center;
-        }
-        #reviewImage {
-            max-width: 180px; /* Adjust as needed */
-            max-height: 180px; /* Adjust as needed */
+        .review-item img {
+            max-width: 150px;
+            height: auto;
+            vertical-align: middle;
             border: 1px solid #ddd;
-            border-radius: 5px;
-            object-fit: cover; /* Ensures image covers area without distortion */
+            border-radius: 4px;
+            margin-left: 10px; /* Adjust margin to place image on the right */
         }
-        #reviewOutput p {
-            margin-bottom: 10px;
-            color: #333;
+        .download-buttons {
+            display: flex;
+            justify-content: space-around;
+            gap: 15px;
+            margin-top: 20px;
         }
-        #reviewOutput p strong {
-            color: #000;
+        .download-buttons button {
+            width: auto;
+            flex-grow: 1;
+            padding: 10px 15px;
+            font-size: 16px;
+        }
+        .download-buttons button.edit {
+            background-color: #6c757d;
+        }
+        .download-buttons button.edit:hover {
+            background-color: #5a6268;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 600px) {
+            .container {
+                margin: 10px;
+                padding: 20px;
+            }
+            .download-buttons {
+                flex-direction: column;
+            }
+            .review-item strong {
+                width: 100px; /* Smaller width for labels on small screens */
+            }
+            .review-item img {
+                margin-top: 10px; /* Push image below text on small screens if necessary */
+                display: block; /* Make image block level to stack */
+                margin-left: 0;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h2>Form Umpan Balik Aksi Nyata<br>PPG Guru Tertentu</h2>
+        <h2>Formulir Umpan Balik Aksi Nyata <br>PPG Guru Tertentu</h2>
         <form id="feedbackForm">
             <div class="form-group">
                 <label for="fullName">Nama Lengkap:</label>
@@ -183,65 +158,49 @@
             </div>
 
             <div class="form-group">
-                <label for="aksiNyata">Aksi Nyata:</label>
-                <select id="aksiNyata" name="aksiNyata" required>
+                <label for="actionType">Aksi Nyata:</label>
+                <select id="actionType" name="actionType" required>
                     <option value="">Pilih Aksi Nyata</option>
-                    <option value="Pembelajaran Berdiferensiasi">Aksi Nyata Pembelajaran Berdiferensiasi</option>
-                    <option value="Pembelajaran Sosial Emosional">Aksi Nyata Pembelajaran Sosial Emosional</option>
+                    <option value="Aksi nyata Pembelajaran Berdiferensiasi">Aksi nyata Pembelajaran Berdiferensiasi</option>
+                    <option value="Aksi nyata Pembelajaran Sosial Emosional">Aksi nyata Pembelajaran Sosial Emosional</option>
                     <option value="Pendidikan Inklusif Anak Berkebutuhan Khusus">Pendidikan Inklusif Anak Berkebutuhan Khusus</option>
                 </select>
             </div>
 
             <div class="form-group">
-                <label for="photoUpload">Unggah Foto (Ukuran Maksimal 500KB, Otomatis Disusutkan):</label>
-                <input type="file" id="photoUpload" name="photoUpload" accept="image/*">
-                <div class="image-preview-container">
-                    <img id="imagePreview" src="#" alt="Pratinjau Gambar">
-                </div>
+                <label for="feedbackText">Umpan Balik Terhadap Aksi Nyata:</label>
+                <textarea id="feedbackText" name="feedbackText" required></textarea>
             </div>
 
             <div class="form-group">
-                <label for="feedback">Umpan Balik terhadap Aksi Nyata:</label>
-                <textarea id="feedback" name="feedback" required></textarea>
+                <label for="photoUpload">Unggah Foto (Opsional):</label>
+                <input type="file" id="photoUpload" name="photoUpload" accept="image/*">
             </div>
 
-            <div class="button-group">
-                <button type="button" id="reviewBtn">Review Jawaban</button>
-                <button type="button" id="downloadBtn">Download Respon (JPG)</button>
-            </div>
+            <button type="button" onclick="reviewFeedback()">Review</button>
         </form>
 
-        <div id="reviewOutput">
+        <div class="review-section" id="reviewSection">
             <h3>Umpan Balik Teman Sejawat</h3>
-            <div id="reviewContent">
-                <div id="reviewText">
-                    <p><strong>Nama Lengkap:</strong> <span id="reviewFullName"></span></p>
-                    <p><strong>Jabatan:</strong> <span id="reviewPosition"></span></p>
-                    <p><strong>Aksi Nyata:</strong> <span id="reviewAksiNyata"></span></p>
-                    <p><strong>Umpan Balik:</strong> <span id="reviewFeedback"></span></p>
-                </div>
-                <div id="reviewImageContainer">
-                    <img id="reviewImage" src="#" alt="Foto Umpan Balik">
-                </div>
+            <div class="review-content">
+                <div class="review-item"><strong>Nama Lengkap:</strong> <span id="reviewFullName"></span></div>
+                <div class="review-item"><strong>Jabatan:</strong> <span id="reviewPosition"></span></div>
+                <div class="review-item"><strong>Aksi Nyata:</strong> <span id="reviewActionType"></span></div>
+                <div class="review-item"><strong>Umpan Balik:</strong> <span id="reviewFeedbackText"></span></div>
+                <div class="review-item"><strong>Foto:</strong> <img id="reviewPhoto" src="#" alt="Foto Umpan Balik" style="display: none;"></div>
+            </div>
+            <div class="download-buttons">
+                <button type="button" onclick="downloadFeedback()">Unduh Respons</button>
+                <button type="button" class="edit" onclick="editFeedback()">Edit Umpan Balik</button>
             </div>
         </div>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script>
-        const photoUpload = document.getElementById('photoUpload');
-        const imagePreview = document.getElementById('imagePreview');
-        const reviewBtn = document.getElementById('reviewBtn');
-        const downloadBtn = document.getElementById('downloadBtn');
-        const reviewOutput = document.getElementById('reviewOutput');
-        const reviewFullName = document.getElementById('reviewFullName');
-        const reviewPosition = document.getElementById('reviewPosition');
-        const reviewAksiNyata = document.getElementById('reviewAksiNyata');
-        const reviewFeedback = document.getElementById('reviewFeedback');
-        const reviewImage = document.getElementById('reviewImage');
-        let resizedImageBase64 = null; // To store the base64 of the resized image
+        let resizedImageBase64 = null; // To store the resized image data
 
-        photoUpload.addEventListener('change', function(event) {
+        document.getElementById('photoUpload').addEventListener('change', function(event) {
             const file = event.target.files[0];
             if (file) {
                 const reader = new FileReader();
@@ -249,11 +208,12 @@
                     const img = new Image();
                     img.src = e.target.result;
                     img.onload = function() {
-                        const MAX_WIDTH = 400; // Max width for the resized image
-                        const MAX_HEIGHT = 400; // Max height for the resized image
+                        const MAX_WIDTH = 300; // Maximum width for the image
+                        const MAX_HEIGHT = 300; // Maximum height for the image
                         let width = img.width;
                         let height = img.height;
 
+                        // Calculate new dimensions while maintaining aspect ratio
                         if (width > height) {
                             if (width > MAX_WIDTH) {
                                 height *= MAX_WIDTH / width;
@@ -272,68 +232,98 @@
                         const ctx = canvas.getContext('2d');
                         ctx.drawImage(img, 0, 0, width, height);
 
-                        // Convert canvas to base64 with JPEG format and quality
-                        resizedImageBase64 = canvas.toDataURL('image/jpeg', 0.8); // 0.8 is quality
-                        imagePreview.src = resizedImageBase64;
-                        imagePreview.style.display = 'block';
+                        resizedImageBase64 = canvas.toDataURL('image/jpeg', 0.8); // Convert to JPEG with 80% quality
                     };
                 };
                 reader.readAsDataURL(file);
             } else {
-                imagePreview.style.display = 'none';
-                imagePreview.src = '#';
                 resizedImageBase64 = null;
             }
         });
 
-        reviewBtn.addEventListener('click', function() {
+        function reviewFeedback() {
             const fullName = document.getElementById('fullName').value;
             const position = document.getElementById('position').value;
-            const aksiNyata = document.getElementById('aksiNyata').value;
-            const feedback = document.getElementById('feedback').value;
+            const actionType = document.getElementById('actionType').value;
+            const feedbackText = document.getElementById('feedbackText').value;
 
-            if (!fullName || !position || !aksiNyata || !feedback) {
-                alert('Mohon lengkapi semua kolom sebelum me-review.');
+            if (!fullName || !position || !actionType || !feedbackText) {
+                alert('Harap lengkapi semua kolom yang wajib diisi.');
                 return;
             }
 
-            reviewFullName.textContent = fullName;
-            reviewPosition.textContent = position;
-            reviewAksiNyata.textContent = aksiNyata;
-            reviewFeedback.textContent = feedback;
+            document.getElementById('reviewFullName').textContent = fullName;
+            document.getElementById('reviewPosition').textContent = position;
+            document.getElementById('reviewActionType').textContent = actionType;
+            document.getElementById('reviewFeedbackText').textContent = feedbackText;
 
+            const reviewPhoto = document.getElementById('reviewPhoto');
             if (resizedImageBase64) {
-                reviewImage.src = resizedImageBase64;
-                reviewImage.style.display = 'block';
+                reviewPhoto.src = resizedImageBase64;
+                reviewPhoto.style.display = 'inline-block';
             } else {
-                reviewImage.style.display = 'none';
-                reviewImage.src = '#';
+                reviewPhoto.src = '#';
+                reviewPhoto.style.display = 'none';
             }
 
-            reviewOutput.style.display = 'block';
-            downloadBtn.style.display = 'inline-block'; // Show download button
-        });
+            document.getElementById('feedbackForm').style.display = 'none';
+            document.getElementById('reviewSection').style.display = 'block';
+        }
 
-        downloadBtn.addEventListener('click', function() {
-            // Temporarily hide the buttons for clean screenshot
-            reviewBtn.style.display = 'none';
-            downloadBtn.style.display = 'none';
+        function editFeedback() {
+            document.getElementById('feedbackForm').style.display = 'block';
+            document.getElementById('reviewSection').style.display = 'none';
+        }
 
-            // Use html2canvas to capture the reviewOutput div
-            html2canvas(reviewOutput, {
+        function downloadFeedback() {
+            const reviewSection = document.getElementById('reviewSection');
+            const originalDisplay = reviewSection.style.display; // Store original display
+
+            // Temporarily set display to block and position to ensure visibility for html2canvas
+            reviewSection.style.display = 'block';
+            reviewSection.style.position = 'relative'; // Ensure it's rendered correctly
+            reviewSection.style.backgroundColor = '#fff'; // Set background for screenshot
+
+            // Create a temporary container to hold the content for screenshotting
+            const tempDiv = document.createElement('div');
+            tempDiv.style.width = '100%';
+            tempDiv.style.padding = '20px';
+            tempDiv.style.boxSizing = 'border-box';
+            tempDiv.style.backgroundColor = '#fff'; // Ensure white background for the generated image
+
+            // Clone the review content for screenshotting
+            const reviewContentClone = reviewSection.querySelector('.review-content').cloneNode(true);
+            tempDiv.appendChild(reviewContentClone);
+
+            // Append the temporary div to body for html2canvas to process
+            document.body.appendChild(tempDiv);
+
+            html2canvas(tempDiv, {
                 scale: 2, // Increase scale for better quality
-                useCORS: true // Essential if images are loaded from different origins (though here it's base64)
+                useCORS: true, // Needed if you are loading images from different origins
+                backgroundColor: '#ffffff' // Ensure background is white
             }).then(canvas => {
                 const link = document.createElement('a');
-                link.download = 'Umpan_Balik_Aksi_Nyata.jpg';
-                link.href = canvas.toDataURL('image/jpeg', 0.9); // 0.9 is quality for download
+                link.download = 'umpan_balik_aksi_nyata.jpg';
+                link.href = canvas.toDataURL('image/jpeg', 0.9); // Convert to JPG with 90% quality
                 link.click();
-            });
 
-            // Bring buttons back
-            reviewBtn.style.display = 'inline-block';
-            downloadBtn.style.display = 'inline-block';
-        });
+                // Clean up: remove the temporary div
+                document.body.removeChild(tempDiv);
+
+                // Restore original display
+                reviewSection.style.display = originalDisplay;
+                reviewSection.style.position = '';
+                reviewSection.style.backgroundColor = '';
+            }).catch(error => {
+                console.error("Oops, something went wrong!", error);
+                alert("Gagal mengunduh umpan balik. Silakan coba lagi.");
+                // Restore original display even if an error occurs
+                reviewSection.style.display = originalDisplay;
+                reviewSection.style.position = '';
+                reviewSection.style.backgroundColor = '';
+            });
+        }
     </script>
 </body>
 </html>
